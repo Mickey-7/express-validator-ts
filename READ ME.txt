@@ -1,0 +1,216 @@
+
+-> Create node app
+    donat@UBVPNN6314 MINGW64 /d/express-validator
+    $ npm init -y
+    Wrote to D:\express-validator\package.json:
+
+    {
+    "name": "express-validator",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+    }
+
+
+
+-> Install @types/express, typescript & express-validator
+    donat@UBVPNN6314 MINGW64 /d/express-validator
+    $ npm install @types/express typescript express-validator
+
+    added 68 packages, and audited 69 packages in 5s
+
+    12 packages are looking for funding
+    run `npm fund` for details
+
+    found 0 vulnerabilities
+
+    donat@UBVPNN6314 MINGW64 /d/express-validator
+    $
+
+-> Create tsconfig.json
+    donat@UBVPNN6314 MINGW64 /d/express-validator
+    $ npx tsc --init
+
+    Created a new tsconfig.json with:
+                                                                                    TS
+    target: es2016
+    module: commonjs
+    strict: true
+    esModuleInterop: true
+    skipLibCheck: true
+    forceConsistentCasingInFileNames: true
+
+
+    You can learn more at https://aka.ms/tsconfig
+
+    donat@UBVPNN6314 MINGW64 /d/express-validator
+    $
+
+-> Modify tsconfig.json, set
+    "outDir":"./dist"
+
+-> Modify package.json, add under scripts
+    "build":"tsc",
+    "start":"node dist/index.js"
+
+-> To Run and Test on Postman
+    donat@UBVPNN6314 MINGW64 /d/express-validator
+    $ npm run build
+
+    > express-validator@1.0.0 build
+    > tsc
+
+
+    donat@UBVPNN6314 MINGW64 /d/express-validator
+    $ npm start
+
+    > express-validator@1.0.0 start
+    > node dist/index.js
+
+    server is running on port 3000
+
+
+-> Postman
+POST : http://localhost:3000/user
+    Request
+    {
+        "username":"12345",
+        "email":"john@gmail.cm",
+        "password":"12345678"
+    }
+    Response
+    {
+        "message": "User created successfully"
+    }
+
+
+    Request
+    {
+        "username":"1234",
+        "email":"john@gmailcm",
+        "password":"1234567"
+    }
+    Response
+    {
+        "errors": [
+            {
+                "type": "field",
+                "value": "1234",
+                "msg": "Invalid value",
+                "path": "username",
+                "location": "body"
+            },
+            {
+                "type": "field",
+                "value": "john@gmailcm",
+                "msg": "Invalid value",
+                "path": "email",
+                "location": "body"
+            },
+            {
+                "type": "field",
+                "value": "1234567",
+                "msg": "Invalid value",
+                "path": "password",
+                "location": "body"
+            }
+        ]
+    }
+
+    Request
+    {
+        "username":"12345",
+        "email":"john@gmail.com",
+        "password":"1234567"
+    }
+    Response
+    {
+        "errors": [
+            {
+                "type": "field",
+                "value": "1234567",
+                "msg": "Invalid value",
+                "path": "password",
+                "location": "body"
+            }
+        ]
+    }
+
+https://medium.com/@hcach90/using-express-validator-for-data-validation-in-nodejs-6946afd9d67e
+
+POST : http://localhost:3000/login
+    Request
+    {
+        "email":"john@gmail.com",
+        "password":"123456"
+    }
+    Response
+    {
+        "message": "login success"
+    }
+
+
+
+https://medium.com/@shanyavermaofficial/how-to-add-validation-using-express-validator-75119f563fd7
+
+POST : http://localhost:3000/signup
+    Request
+    {
+        "email":"admin@admin.com"
+    }
+    Response
+    {
+        "errors": [
+            {
+                "type": "field",
+                "value": "admin@admin.com",
+                "msg": "Can't enter this email",
+                "path": "email",
+                "location": "body"
+            }
+        ]
+    }
+
+https://dev.to/nedsoft/a-clean-approach-to-using-express-validator-8go
+POST : http://localhost:3000/employee
+    Request
+    {
+        "username":"admin@admin.com",
+        "password":"12346"
+    }
+    Response
+    {
+        "username": "admin@admin.com",
+        "password": "12346"
+    }
+
+    Request
+    {
+        "username":"admin@admincom",
+        "password":"1234"
+    }
+    Response
+    {
+        "errors": [
+            {
+                "type": "field",
+                "value": "admin@admincom",
+                "msg": "Invalid value",
+                "path": "username",
+                "location": "body"
+            },
+            {
+                "type": "field",
+                "value": "1234",
+                "msg": "Invalid value",
+                "path": "password",
+                "location": "body"
+            }
+        ]
+    }
